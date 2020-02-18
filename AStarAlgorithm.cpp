@@ -1,29 +1,32 @@
 #include "AStarAlgorithm.h"
 #include <iostream>
-#include <set>
 
-AStarAlgorithm::AStarAlgorithm(const int& x1, const int& y1, const int& x2, const int& y2)
+
+AStarAlgorithm::AStarAlgorithm(const int& rows, const int& cols, const int& x1, const int& y1, const int& x2, const int& y2) : ROWS(rows), COLS(cols)
 {
-	for (int i = 0; i < 25; i++)
-	{
-		for (int j = 0; j < 25; j++)
-		{
-			matrix[i][j] = new Spot(i, j);
-		}
-	}
-
-
-	for (int i = 0; i < 25; i++)
-	{
-		for (int j = 0; j < 25; j++)
-		{
-			matrix[i][j]->addNeighbours(matrix);
-		}
-	}
-
 	
-	start = matrix[x1][y1];
-	end = matrix[x2][y2];
+	for (int i = 0; i < rows; i++)
+	{
+		std::vector<Spot*> temp;
+
+		for (int j = 0; j < cols; j++)
+		{
+			temp.push_back( new Spot(i, j, rows, cols) );
+		}
+
+		matrix.push_back(temp);
+	}
+	
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			matrix.at(i).at(j)->addNeighbours(matrix);
+		}
+	}
+
+	start = matrix.at(x1).at(y1);
+	end = matrix.at(x2).at(y2);
 
 	openSet.push_back(start);
 	openSet.at(0)->set = '+';
@@ -62,12 +65,9 @@ AStarAlgorithm::AStarAlgorithm(const int& x1, const int& y1, const int& x2, cons
 				start->set = 'S';
 				end->set = 'E';
 
-				std::cout << "WINNER" << std::endl;
-
 				break;
 			}
 
-			// ezt akarom -> openSet.remove(current);
 			for (int i = 0; i < openSet.size(); i++)
 			{
 				if (openSet.at(i) == current)
@@ -123,12 +123,13 @@ AStarAlgorithm::AStarAlgorithm(const int& x1, const int& y1, const int& x2, cons
 
 void AStarAlgorithm::draw()
 {
-	for (int i = 0; i < 25; i++)
+	for (int i = 0; i < ROWS; i++)
 	{
-		std::cout << "	";
-		for (int j = 0; j < 25; j++)
+		std::cout << "  ";
+
+		for (int j = 0; j < COLS; j++)
 		{
-			std::cout <<  matrix[i][j]->set << " ";
+			std::cout << matrix.at(i).at(j)->set << " ";
 		}
 		std::cout << std::endl;
 	}

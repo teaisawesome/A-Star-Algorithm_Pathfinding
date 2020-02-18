@@ -4,10 +4,12 @@
 
 class AStarAlgorithm
 {
-
 private:
+
+	int ROWS;
+	int COLS;
 	
-	Spot *matrix[25][25];
+	std::vector< std::vector<Spot*> > matrix;
 
 	std::vector<Spot*> openSet;
 	std::vector<Spot*> closedSet;
@@ -19,7 +21,7 @@ private:
 
 public:
 
-	AStarAlgorithm(const int& x1, const int& y1, const int& x2, const int& y2);
+	AStarAlgorithm(const int& rows, const int& cols, const int& x1, const int& y1, const int& x2, const int& y2);
 
 	int heuristic(Spot *s, Spot *end);
 

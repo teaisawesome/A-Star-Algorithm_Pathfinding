@@ -1,9 +1,12 @@
 #include "Spot.h"
+#include "AStarAlgorithm.h"
 
-Spot::Spot(const int& x, const int& y)
+Spot::Spot(const int& x, const int& y, const int& rows, const int& cols)
 {
 	this->x = x;
 	this->y = y;
+	this->ROWS = rows;
+	this->COLS = cols;
 }
 
 bool Spot::operator==(const Spot& s) const
@@ -18,27 +21,26 @@ bool Spot::operator==(const Spot& s) const
 	}
 }
 
-void Spot::addNeighbours(Spot *matrix[25][25])
+void Spot::addNeighbours( std::vector<std::vector<Spot*>> matrix )
 {
 	int x = this->x;
 	int y = this->y;
 
-	// 5 = cols
-	if (x < 25 - 1)
+	if (x < this->ROWS - 1)
 	{
-		this->neighbours.push_back(matrix[x + 1][y]);
+		this->neighbours.push_back(matrix.at(x + 1).at(y));
 	}
 	if (x > 0)
 	{
-		this->neighbours.push_back(matrix[x - 1][y]);
+		this->neighbours.push_back(matrix.at(x - 1).at(y));
 	}
-	if (y < 25 - 1)
+	if (y < this->COLS - 1)
 	{
-		this->neighbours.push_back(matrix[x][y + 1]);
+		this->neighbours.push_back(matrix.at(x).at(y + 1));
 	}
 	if (y > 0)
 	{
-		this->neighbours.push_back(matrix[x][y - 1]);
+		this->neighbours.push_back(matrix.at(x).at(y - 1));
 	}
 }
 
