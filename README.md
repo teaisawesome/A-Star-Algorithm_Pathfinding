@@ -10,4 +10,4 @@ Vizualizációt egy Console Terminálba készítettem el:
 * **+: open set**
 * **o: closed set**
 
-![alt text](https://github.com/teaisawesome/A-Star-Algorithm_Pathfinding/blob/master/img/AStarAlgorithm_Vizualization.png "AStarAlgorithm_Vizualization")
+![alt text](https://github.com/teaisawesome/A-Star-Algorithm_Pathfinding/blob/master/img/AStar_v2.png "AStarAlgorithm_Vizualization")
